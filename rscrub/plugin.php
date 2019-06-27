@@ -489,7 +489,7 @@ function rscrub_mgr() {
 	$o = rscrub_options();
 	$data = $_SERVER['REQUEST_URI'];
 	// check for scrubbing trigger
-	if($data[1] !== $o[1] ) {
+	if(substr($data, -1) !== $o[1] ) {
 		// no trigger, maybe scrub all
 		if($o[0] = 'all') {
 			yourls_add_action( 'pre_redirect', 'rscrub_pre_redirect' );
@@ -498,7 +498,7 @@ function rscrub_mgr() {
 			return false;
 	} else {
 		// scrubbing triggered
- 		$data = substr($data, 2);
+ 		$data = substr($data, 1, -1);
 		// check for url v keyword
 		if (filter_var($data, FILTER_VALIDATE_URL)) {
 			// url: enabled?
